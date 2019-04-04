@@ -4,6 +4,8 @@
 
 <!doctype html>
 <html lang="en">
+{% load staticfiles %}
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,6 +15,7 @@
     <title>Album example · Bootstrap</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+    <title>{{ blog.title }}</title>
 
     <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -40,15 +43,15 @@
   <body>
  <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">RACE</a>
+  <a class="navbar-brand" href="{% url "home" %}">RACE</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto">
-      <a class="nav-item nav-link " href="#">Twitter </a>
-      <a class="nav-item nav-link" href="#">Resume</a>
-      <a class="nav-item nav-link active" href="#">Blog</a>
+      <a class="nav-item nav-link " href="http://twitter.com">Twitter </a>
+      <a class="nav-item nav-link" href="{% static "yeni.pdf" %}">Resume</a>
+      <a class="nav-item nav-link active" href="{% url "allblogs" %}">Blog</a>
     </div>
   </div>
 </nav>
@@ -63,9 +66,11 @@
  <br>
  <h2>Latest Posts</h2><hr>
  {% for blog in blogs.all %}
- {{ Blog.title }}<br>
+ <a href="{% url "detail" blog.id%}"><h3>{{ blog.title }}</h3></a>
+ {{blog.pub_date_pretty}}<br>
+ <img class="img-fluid" src="{{ blog.image.url }}" height=200><br>
+ <p>{{ blog.summary }}</p>
  {% endfor %}
-
  </div>
 </main>
 
